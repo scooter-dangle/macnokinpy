@@ -68,57 +68,20 @@ module MacNokinpy
     end
 end
 
-class Outputter
-    attr_reader :messages, :printer, :queue
-    def initialize
-        @messages = []
-        @printer  = Thread.new {}
-        @queue    = []
-    end
-
-    def puts str
-        @queue.push str
-        get_printing! unless @printer.alive?
-        nil
-    end
-    alias_method :print, :puts
-
-    def get_printing!
-        @messages.replace @queue
-        @queue.clear
-        @printer = Thread.new {
-            Kernel.puts @messages.shift until @messages.empty?
-            get_printing! unless @queue.empty?
-        }
-    end
-
-    def join
-        @printer.join
-    end
-end
-
-outputter = Outputter.new
-threads = []
-
 # Re-write all the Html files in OEBPS
 FileList['OEBPS/*.html'].each_slice 4 do |slice|
-    threads << Thread.new {
-        slice.each do |filename|
-            outputter.puts "Currently working on #{filename}..."
-            doc = Nokogiri::HTML.parse( IO.read filename )
-            (doc / 'pre.programlisting').each do |node|
-                new_code = (Nokogiri::HTML.parse(node.content.extend(MacNokinpy).format_code) / 'div.highlight').first
-                node.swap new_code
-            end
-
-            IO.write filename, doc.to_s
-            outputter.puts "#{filename} done"
+    slice.each do |filename|
+        puts "Currently working on #{filename}..."
+        doc = Nokogiri::HTML.parse( IO.read filename )
+        (doc / 'pre.programlisting').each do |node|
+            new_code = (Nokogiri::HTML.parse(node.content.extend(MacNokinpy).format_code) / 'div.highlight').first
+            node.swap new_code
         end
-    }
-end
 
-threads << outputter
-threads.each &:join
+        IO.write filename, doc.to_s
+        puts "#{filename} done"
+    end
+end
 
 # Append pygmentize styles to Css file
 # (Run pygmentize -L styles for list of available styles)
