@@ -17,10 +17,10 @@ Requires the following commandline tools:
         * zip/unzip
         * pygmentize
         * ruby
-        * rake
 
 And the following gems:
         * nokogiri
+        * rake
 
 Uses `open3` from the Ruby Standard Library, which works well on
 Linux. I'd imagine it would be fine on OS X, but I've heard it
