@@ -69,18 +69,16 @@ module MacNokinpy
 end
 
 # Re-write all the Html files in OEBPS
-FileList['OEBPS/*.html'].each_slice 4 do |slice|
-    slice.each do |filename|
-        puts "Currently working on #{filename}..."
-        doc = Nokogiri::HTML.parse( IO.read filename )
-        (doc / 'pre.programlisting').each do |node|
-            new_code = (Nokogiri::HTML.parse(node.content.extend(MacNokinpy).format_code) / 'div.highlight').first
-            node.swap new_code
-        end
-
-        IO.write filename, doc.to_s
-        puts "#{filename} done"
+FileList['OEBPS/*.html'].each do |filename|
+    print "Currently working on #{filename}..."
+    doc = Nokogiri::HTML.parse( IO.read filename )
+    (doc / 'pre.programlisting').each do |node|
+        new_code = (Nokogiri::HTML.parse(node.content.extend(MacNokinpy).format_code) / 'div.highlight').first
+        node.swap new_code
     end
+
+    IO.write filename, doc.to_s
+    puts "#{filename} done"
 end
 
 # Append pygmentize styles to Css file
@@ -88,7 +86,7 @@ end
 style = 'monokai'
 background_color = '#333'
 filename = 'OEBPS/core.css'
-outputter.puts "Currently working on #{filename}..."
+print "Currently working on #{filename}..."
 File.open filename, 'a+' do |file|
     css = "".extend(MacNokinpy)
         .out_and_back("pygmentize -S #{style} -f html", PygmentsError)
@@ -96,5 +94,5 @@ File.open filename, 'a+' do |file|
     file.puts "div.highlight { background-color: #{background_color}; }"
     file.puts css
 end
-outputter.puts "Done"
+puts "Done"
 
