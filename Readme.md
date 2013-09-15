@@ -46,6 +46,9 @@ Disclaimer
 Back up your original epub file in an entirely separate directory.
 This script could destroy everything, although it's not meant to.
 
+I assume you are only using this on a legally obtained copy of the
+epub file.
+
 Note
 ----
 `rake fix` is a necessary step in this process for my version of the
