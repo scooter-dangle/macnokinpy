@@ -36,7 +36,8 @@ task :reformat => :fix do
 end
 
 task :zip => :reformat do
-    system "zip 'Mastering Algorithms with C - Kyle Loudon' mimetype OEBPS META-INF"
+    system "rm 'Mastering Algorithms with C - Kyle Loudon.zip'"
+    system "zip 'Mastering Algorithms with C - Kyle Loudon' mimetype OEBPS/* META-INF/*"
 end
 
 task :to_epub => :zip do
