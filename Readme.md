@@ -57,3 +57,6 @@ code in `rake fix` is either insufficient or incorrect. If the script
 successfully reformats a number of html files before crashing, your
 version of the file might require a different set of fixes.
 
+License
+-------
+MIT for all the things.
