@@ -8,7 +8,7 @@ class IndentError < StandardError; end
 class PygmentsError < StandardError; end
 
 # A module to be extended onto a String instance
-# Overall, this project is for "Mastering Algorithms in C" (Mac).
+# Overall, this project is for "Mastering Algorithms with C" (Mac).
 # It swaps code nodes using Nokogiri (Nok) after piping them through
 # indent (in) and pygmentize (py).
 module MacNokinpy
