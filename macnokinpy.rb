@@ -78,7 +78,7 @@ FileList['OEBPS/*.html'].each do |filename|
     end
 
     IO.write filename, doc.to_s
-    puts "#{filename} done"
+    puts "Done"
 end
 
 # Append pygmentize styles to Css file
