@@ -13,14 +13,14 @@ result through Pygments for syntax highlighting.
 Dependencies
 ------------
 Requires the following commandline tools:
-        * indent
-        * zip/unzip
-        * pygmentize
-        * ruby
+* indent
+* zip/unzip
+* pygmentize
+* ruby
 
 And the following gems:
-        * nokogiri
-        * rake
+* nokogiri
+* rake
 
 Uses `open3` from the Ruby Standard Library, which works well on
 Linux. I'd imagine it would be fine on OS X, but I've heard it
