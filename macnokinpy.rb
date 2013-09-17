@@ -19,8 +19,8 @@ module MacNokinpy
             .pygmentize
     end
 
+    # Reduce annoying block comments
     def reduce_block_comments
-        # Reduce annoying block comments
         gsub(/^\s*\*\s+\*\s*$/, '')       # Get rid of otherwise-empty double asterisk lines
             .gsub(/^\s*\/\*+$/, '')         # Get rid of *long* opening block comment lines
             .gsub(/^\s*\*+\/\s*$/, '')      # Get rid of *long* closing block comment lines
@@ -29,8 +29,8 @@ module MacNokinpy
             .extend MacNokinpy
     end
 
+    # Replace html entities (they'll come right back when piped through pygmentize)
     def replace_html_entities
-        # Replace html entities (they'll come right back when piped through pygmentize
         gsub(/&amp;/,  ?&)
             .gsub(/&gt;/,   ?>)
             .gsub(/&lt;/,   ?<)
