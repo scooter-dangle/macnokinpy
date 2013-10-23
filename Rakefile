@@ -13,20 +13,17 @@ task :unzip => :to_zip do
 end
 
 task :fix => :unzip do
+    # Array of 2-tuples where first element is filename, and second element
+    # is array of 2-tuples specifying line fixes
     fixes = [
-       {:file => 'OEBPS/ch17s03.html',
-        :lines => [
-            [65, "   &amp;&amp; MAX(p3.y, p4.y) &gt;= MIN(p1.y, p2.y))) {\n"]
-        ]}
+        ['OEBPS/ch17s03.html', [65, "   &amp;&amp; MAX(p3.y, p4.y) &gt;= MIN(p1.y, p2.y))) {\n"]]
     ]
 
-    fixes.each do |fix|
-        print "Fixing #{fix[:file]}..."
-        text = IO.readlines fix[:file]
-        fix[:lines].each do |(line_No, line)|
-            text[line_No] = line
-        end
-        IO.write fix[:file], text.join('')
+    fixes.each do |(file, corrections)|
+        print "Fixing #{file}..."
+        text = IO.readlines file
+        corrections.each { |(line_No, line)| text[line_No] = line }
+        IO.write file, text.join('')
         puts "Done"
     end
 end
