@@ -73,8 +73,9 @@ FileList['OEBPS/*.html'].each do |filename|
     print "Currently working on #{filename}..."
     doc = Nokogiri::HTML.parse( IO.read filename )
     (doc / 'pre.programlisting').each do |node|
-        new_code = (Nokogiri::HTML.parse(node.content.extend(MacNokinpy).format_code) / 'div.highlight').first
-        node.swap new_code
+        formatted_code = node.content.extend(MacNokinpy).format_code
+        code_div       = Nokogiri::HTML.parse(formatted_code) / 'div.highlight'
+        node.swap code_div.first
     end
 
     IO.write filename, doc.to_s
